@@ -10,7 +10,7 @@ class LogController < ApplicationController
 
   def index
     params[:tags] ||= ['']
-    @data = LogEntry.where(tags: {'$in' => params[:tags]})
+    @result = LogEntry.where(tags: {'$in' => params[:tags]})
     render 'index'
   end
 end
