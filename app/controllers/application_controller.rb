@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
     bucket = params[:bucket]
     
-    if bucket.nil?
+    if !bucket.present?
       puts "missing bucket"
       puts request.env['HTTP_USER_AGENT']
       puts request.remote_ip
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       #puts params[:bucket]
       #puts "-----------------------"
 
-      Thread.current[:bucket] = Bucket.find_by(bucket: params[:bucket]).bucket
+      Thread.current[:bucket] = Bucket.find_or_create_by(bucket: params[:bucket]).bucket
     end
   end
 
