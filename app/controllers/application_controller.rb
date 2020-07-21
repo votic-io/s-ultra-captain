@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       #puts params[:bucket]
       #puts "-----------------------"
 
-      Thread.current[:bucket] = Bucket.find_or_create_by(bucket: params[:bucket]).bucket
+      Thread.current[:bucket] = Bucket.unscoped.find_or_create_by(bucket: params[:bucket]).bucket
     end
   end
 
