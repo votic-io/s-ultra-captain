@@ -3,7 +3,7 @@ class LogController < ApplicationController
   def entry
     params[:tags] ||= []
     params[:keystore] ||= {}
-    params[:tags] << ['']
+    params[:tags] += ['']
     @result = LogEntry.create!(message: params[:message], tags: params[:tags], keystore: params[:keystore].to_unsafe_h)
     render 'index'
   end
