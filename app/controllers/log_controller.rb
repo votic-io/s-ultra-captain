@@ -13,4 +13,14 @@ class LogController < ApplicationController
     @result = LogEntry.where(tags: {'$all': params[:tags]}).sort(created_at: -1).limit(25)
     render 'index'
   end
+
+  def filters
+    params[:tags] ||= ['']
+    @result = LogEntry.collection.aggregate([
+      {'$match': {bucket: Thread.current[:bucket], tags: {'$all': params[:tags]}},
+      {'$unwind': :tags},
+      {'group': {'_id': :tags, count: {'$sum': 1}}}
+    ]).collect{|e| {e['_id'] => e[:count]}}
+    render 'index'
+  end
 end
