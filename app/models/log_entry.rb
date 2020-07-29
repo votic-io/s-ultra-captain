@@ -9,5 +9,9 @@ class LogEntry
 	field :tags, type: Array, default: [] #[Strings]
 
 	index({ bucket: 1, tags: 1 }, { background: true })
+
+	def as_json(options=nil)
+		super(options).tap{|e| e[:tags] = e[:tags].select{|t| e.present?}}
+	end
 	
 end
