@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   	collection do
   		post :entry
   		get :entry
-  		get :routes
+  		get :filters
   	end
   end
 end
