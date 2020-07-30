@@ -19,7 +19,9 @@ class LogController < ApplicationController
     @result = LogEntry.collection.aggregate([
       {'$match': {bucket: Thread.current[:bucket], tags: {'$all': params[:tags]}}},
       {'$unwind': '$tags'},
-      {'$group': {'_id': '$tags', count: {'$sum': 1}}}
+      {'$group': {'_id': '$tags', count: {'$sum': 1}}},
+      {'$sort': {count: -1}},
+      {'$limit': 10}
     ]).collect{|e| {tag: e['_id'], count: e[:count]}}
     render 'index'
   end
