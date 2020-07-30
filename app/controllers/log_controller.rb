@@ -20,7 +20,7 @@ class LogController < ApplicationController
       {'$match': {bucket: Thread.current[:bucket], tags: {'$all': params[:tags]}}},
       {'$unwind': '$tags'},
       {'$group': {'_id': '$tags', count: {'$sum': 1}}}
-    ]).collect{|e| {e['_id'] => e[:count]}}
+    ]).collect{|e| {tag: e['_id'], count: e[:count]}}
     render 'index'
   end
 end
