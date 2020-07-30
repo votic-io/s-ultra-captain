@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   	collection do
   		post :entry
   		get :entry
+  		get :routes
   	end
   end
 end
