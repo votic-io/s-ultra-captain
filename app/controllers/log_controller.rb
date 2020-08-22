@@ -4,6 +4,7 @@ class LogController < ApplicationController
     params[:tags] ||= []
     params[:keystore] ||= {}
     params[:tags] += ['']
+    params[:tags] = params[:tags].collect{|e| e.upcase}
     @result = LogEntry.create!(message: params[:message], tags: params[:tags], keystore: params[:keystore].to_unsafe_h)
     render 'index'
   end
@@ -16,6 +17,7 @@ class LogController < ApplicationController
 
   def filters
     params[:tags] ||= ['']
+    params[:tags] = params[:tags].collect{|e| e.upcase}
     @result = LogEntry.collection.aggregate([
       {'$match': {bucket: Thread.current[:bucket], tags: {'$all': params[:tags]}}},
       {'$sort': {created_at: -1}},
