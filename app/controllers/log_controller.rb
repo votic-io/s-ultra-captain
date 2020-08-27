@@ -11,6 +11,7 @@ class LogController < ApplicationController
 
   def index
     params[:tags] ||= ['']
+    params[:tags] = params[:tags].collect{|e| e.upcase}
     @result = LogEntry.where(tags: {'$all': params[:tags]}).sort(created_at: -1).limit(25)
     render 'index'
   end
