@@ -22,6 +22,7 @@ class LogController < ApplicationController
     @result = LogEntry.collection.aggregate([
       {'$match': {bucket: Thread.current[:bucket], tags: {'$all': params[:tags]}}},
       {'$sort': {created_at: -1}},
+      {'$project': {tags: 1}},
       {'$limit': 1000},
       {'$unwind': '$tags'},
       {'$match': {tags: {'$ne': ''}}},
