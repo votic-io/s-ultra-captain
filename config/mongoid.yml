@@ -142,5 +142,7 @@ production:
         retry_interval: 1
         timeout: 15
         max_pool_size: 20
+        read:
+            mode: secondary_preferred
   options:
     raise_not_found_error: false
