@@ -3,7 +3,7 @@ namespace :captain do
         # Limpio entradas de hace 3 o más meses de antigüedad.
         LogEntry.where(
             :bucket => "FULLJAUS", 
-            :created_at.lt => Time.now - 3.months
+            :created_at.lt => Time.now - 15.days
         ).delete_all
     end
 end
